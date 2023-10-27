@@ -64,6 +64,7 @@ const ProductCard = ({ product }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
+    // width: "90%",
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 8,
