@@ -3,13 +3,17 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const addedIcon = require('../../assets/add-to-favorites.png');
 const removedIcon = require('../../assets/heart.png');
+import { useIsFocused } from '@react-navigation/native';
 
 const ProductCard = ({ product }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
+    if (isFocused) {
     checkIsExisting();
-  }, []);
+    }
+  }, [isFocused]);
 
   const checkIsExisting = async () => {
     try {
@@ -44,7 +48,7 @@ const ProductCard = ({ product }) => {
           await AsyncStorage.setItem('favorites', JSON.stringify(favoriteProducts));
         }
       }
-      setIsLiked(!isLiked); // Toggle the liked state
+      setIsLiked(!isLiked); 
     } catch (error) {
       console.error('Error setting favorites:', error);
     }

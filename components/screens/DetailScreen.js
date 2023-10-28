@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
-  // Add more styles for additional details here
 });
 
 export default DetailScreen;
