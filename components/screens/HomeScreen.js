@@ -5,12 +5,11 @@ import {
   Image,
   FlatList,
   Pressable,
-  RefreshControl,
   StyleSheet,
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Chip } from "react-native-paper"; // Import the Chip component
+import { Chip } from "react-native-paper"; 
 import ProductCard from "../common/OrchidCard";
 import Swiper from "react-native-swiper";
 
@@ -19,7 +18,7 @@ const apiUrl = "https://633c28adf11701a65f705dd1.mockapi.io";
 const HomeScreen = () => {
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("All"); // Initial category
+  const [selectedCategory, setSelectedCategory] = useState("All"); 
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -36,9 +35,8 @@ const HomeScreen = () => {
   };
 
   const filterDataByCategory = (category) => {
-    // Filter the data based on the selected category
     if (category === "All") {
-      return data; // Show all products
+      return data; 
     }
     return data.filter((item) => item.category === category);
   };

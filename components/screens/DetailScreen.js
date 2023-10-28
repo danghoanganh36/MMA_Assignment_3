@@ -1,16 +1,33 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { useRoute } from "@react-navigation/native";
+const addedIcon = require("../../assets/add-to-favorites.png");
+const removedIcon = require("../../assets/heart.png");
 
-const DetailScreen = () => {
+const DetailScreen = ( isLiked ) => {
   const route = useRoute();
   const product = route.params.item;
-  console.log(product);
+  console.log(isLiked);
   return (
     <ScrollView style={styles.container}>
       <Image source={{ uri: product.image }} style={styles.image} />
       <View style={styles.infoContainer}>
-        <Text style={styles.name}>{product.name}</Text>
+        <View style={{ flexDirection: "row", borderBottomColor: "#ccc", borderBottomWidth: 1, marginBottom: 10 }}>
+          <Text style={styles.name}>{product.name}</Text>
+          <TouchableOpacity style={styles.likeButton}>
+            <Image
+              source={isLiked ? addedIcon : removedIcon}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
         <Text style={styles.description}>{product.description}</Text>
       </View>
     </ScrollView>
@@ -20,10 +37,10 @@ const DetailScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 300,
   },
   infoContainer: {
@@ -31,14 +48,29 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   description: {
     fontSize: 16,
     lineHeight: 24,
-    color: '#555',
-  }
+    color: "#555",
+  },
+  likeButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  icon: {
+    width: 24,
+    height: 24,
+  },
 });
 
 export default DetailScreen;
