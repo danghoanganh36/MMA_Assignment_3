@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   FlatList,
   Pressable,
+  RefreshControl,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ProductCard from "../common/OrchidCard";
@@ -16,6 +18,7 @@ const apiUrl = "https://633c28adf11701a65f705dd1.mockapi.io";
 
 const HomeScreen = () => {
   const [data, setData] = React.useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
   const navigation = useNavigation();
 
   React.useEffect(() => {
@@ -23,6 +26,7 @@ const HomeScreen = () => {
       const response = await fetch(apiUrl + "/orchid");
       const json = await response.json();
       setData(json);
+      console.log(json);
     };
     fetchData();
   }, []);
@@ -32,21 +36,15 @@ const HomeScreen = () => {
   };
 
   return (
+    // <ScrollView style={styles.container} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
     <View style={styles.container}>
       <View style={styles.swiper}>
         <Swiper style={styles.wrapper} showsButtons={false}>
-          {data.map(
-            (item) => (
-              (
-                <View style={styles.slide}>
-                  <Image
-                    style={styles.productImage}
-                    source={{ uri: item.image }}
-                  />
-                </View>
-              )
-            )
-          )}
+          {data.map((item) => (
+            <View style={styles.slide}>
+              <Image style={styles.productImage} source={{ uri: item.image }} />
+            </View>
+          ))}
         </Swiper>
       </View>
       <Text style={styles.productListTitle}>Orchid Favorites</Text>
@@ -63,6 +61,7 @@ const HomeScreen = () => {
         />
       </View>
     </View>
+    //</ScrollView>
   );
 };
 
@@ -70,7 +69,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    padding: 10,
   },
   productListTitle: {
     fontSize: 20,
@@ -80,14 +78,17 @@ const styles = StyleSheet.create({
   },
   productList: {
     flex: 1,
+    width: "100%",
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
   },
   swiper: {
     flex: 1,
+    width: "100%",
+    height: 400,
     backgroundColor: "#fff",
-    padding: 10,
+    paddingBottom: 30,
   },
   wrapper: {},
   slide: {
@@ -99,7 +100,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     resizeMode: "cover",
-    borderRadius: 8,
   },
 });
 

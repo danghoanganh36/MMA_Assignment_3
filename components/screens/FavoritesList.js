@@ -52,8 +52,20 @@ const FavoritesList = () => {
     }
   };
 
+  const removeAllProduct = async () => {
+    try {
+      await AsyncStorage.removeItem("favorites");
+      setFavoriteProducts([]);
+    } catch (error) {
+      console.error("Error removing all products:", error);
+    }
+  };
+
   return favoriteProducts.length > 0 ? (
     <ScrollView>
+      <Pressable style={styles.removeButton} onPress={() => removeAllProduct()}>
+            <Text style={styles.removeButtonText}>Remove All</Text>
+      </Pressable>
       {favoriteProducts.map((product, index) => (
         <View key={index} style={styles.favoriteItem}>
           <Image source={{ uri: product.image }} style={styles.productImage} />
