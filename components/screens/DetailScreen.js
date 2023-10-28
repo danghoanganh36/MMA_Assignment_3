@@ -11,7 +11,7 @@ const DetailScreen = () => {
       <Image source={{ uri: product.image }} style={styles.image} />
       <View style={styles.infoContainer}>
         <Text style={styles.name}>{product.name}</Text>
-        {/* Add more details about the item here */}
+        <Text style={styles.description}>{product.description}</Text>
       </View>
     </ScrollView>
   );
@@ -34,6 +34,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
+  description: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+  }
 });
 
 export default DetailScreen;
