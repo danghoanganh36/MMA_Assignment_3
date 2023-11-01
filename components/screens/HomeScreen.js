@@ -31,7 +31,7 @@ const HomeScreen = () => {
   }, []);
 
   const onItemPress = (item) => {
-    navigation.navigate("DetailScreen", { item });
+    navigation.navigate("DetailScreen", { item, source: "Home" });
   };
 
   const filterDataByCategory = (category) => {
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    marginTop: 40,
   },
   productListTitle: {
     fontSize: 20,

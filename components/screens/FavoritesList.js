@@ -6,14 +6,16 @@ import {
   StyleSheet,
   ScrollView,
   Pressable,
+  TouchableOpacity,
 } from "react-native";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProductCard from "../common/OrchidCard";
 
 const FavoritesList = () => {
   const [favoriteProducts, setFavoriteProducts] = useState([]);
   const isFocused = useIsFocused();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const loadFavorites = async () => {
@@ -61,19 +63,25 @@ const FavoritesList = () => {
     }
   };
 
+  const onItemPress = (item) => {
+    navigation.navigate("DetailScreen", { item, source: "FavoritesList" });
+  };
+
   return favoriteProducts.length > 0 ? (
     <ScrollView>
       <Pressable style={styles.removeButton} onPress={() => removeAllProduct()}>
             <Text style={styles.removeButtonText}>Remove All</Text>
       </Pressable>
       {favoriteProducts.map((product, index) => (
-        <View key={index} style={styles.favoriteItem}>
+        <TouchableOpacity key={index} style={styles.favoriteItem} onPress={() => onItemPress(product)} >
+        {/* <View key={index} style={styles.favoriteItem}> */}
           <Image source={{ uri: product.image }} style={styles.productImage} />
           <Text style={styles.productName}>{product.name}</Text>
           <Pressable style={styles.removeButton} onPress={() => removeProduct(product.id)}>
             <Text style={styles.removeButtonText}>Remove</Text>
           </Pressable>
-        </View>
+        {/* </View> */}
+        </TouchableOpacity>
       ))}
     </ScrollView>
   ) : (

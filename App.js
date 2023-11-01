@@ -24,12 +24,17 @@ const header = () => {
 };
 
 const HomeStack = () => (
-  <Stack.Navigator initialRouteName="Home">
+  <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
     <Stack.Screen
       name="HomeScreen"
       component={HomeScreen}
       options={{ tabBarLabel: "Home", headerLeft: header, headerTitle: "" }}
     />
+    {/* <Stack.Screen
+      name="FavoritesList"
+      component={FavoritesList}
+      options={{ tabBarLabel: "Favorites", headerLeft: header, headerTitle: "" }}
+    /> */}
     <Stack.Screen
       name="DetailScreen"
       component={DetailScreen}
